@@ -1,0 +1,135 @@
+<form
+  #loginForm="ngForm"
+  (ngSubmit)="
+    form_submission = true; loginForm.valid && signIn(loginForm.value)
+  "
+  class="relative"
+>
+    <div
+      class="no-scrollbar animate-fade-in fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto overflow-x-hidden outline-none backdrop-blur-sm focus:outline-none"
+
+    >
+      <div
+        class="xs:w-6/12 h-screen flex w-full flex-col items-center justify-center gap-2 md:rounded-[20px] bg-black/30 py-6 shadow-lg md:w-8/12 xl:w-1/2"
+      >
+        <div class="relative right-4 flex w-full justify-end">
+        </div>
+
+        <div class="mb-3 flex w-full justify-center">
+          <img
+            src="/assets/logo.jpg"
+            alt=""
+            class="w-20 rounded-md cursor-pointer"
+          />
+        </div>
+        <div class="flex mb-4 w-[60%] flex-col justify-center gap-2">
+            <h1 class="text-md w-full text-white text-center font-semibold">
+              All Your Academic questions can be answered step-by-step here.
+            </h1>
+          </div>
+
+        @if (formMessage) {
+          <div class="mb-3 flex w-[85%] flex-col justify-center gap-2">
+            <app-form-message
+              (onClose)="formMessage =null"
+              [autoClose]="false"
+              [type]="formMessage.type"
+              [message]="formMessage.message"
+            ></app-form-message>
+          </div>
+        }
+        <div class="w-[85%] justify-center gap-1 sm:flex">
+          <input
+            (focus)="onInputFocus()"
+            #templateInputRef="ngModel"
+            [type]="'text'"
+            placeholder="Email"
+            [name]="'email'"
+            [(ngModel)]="form.email"
+            [pattern]="emailPattern"
+            [required]="true"
+            [ngClass]="
+              (templateInputRef.invalid && form_submission)
+                ? 'border-danger/80 focus:outline-danger/80'
+                : 'border-zinc-400 focus:outline-none '
+            "
+            class="block h-[55px] w-full rounded-full font-bold border py-1.5 pl-8 pr-5 bg-transparent text-white shadow sm:text-sm sm:leading-6"
+          />
+          <div class="w-full px-2 py-1 text-left text-xs text-danger/80">
+            @if (templateInputRef.errors && templateInputRef.invalid && form_submission) {
+              @if (templateInputRef.errors['required']) {
+                <span>Email is required</span>
+              }
+              @if (templateInputRef.errors['pattern']) {
+                  <span>Email format is not
+                    valid</span>
+              }
+            }
+            </div>
+        </div>
+        <div class="w-[85%] justify-center gap-1 sm:flex">
+          <input
+            (focus)="onInputFocus()"
+            #templateInputRef="ngModel"
+            [type]="'password'"
+            placeholder="Password"
+            [name]="'password'"
+            [(ngModel)]="form.password"
+            [required]="true"
+            [ngClass]="
+              (templateInputRef.invalid && form_submission)
+                ? 'border-danger/80 focus:outline-danger/80'
+                : 'border-zinc-400 focus:outline-none '
+            "
+            class="block h-[55px] w-full rounded-full font-bold border py-1.5 pl-8 pr-5 bg-transparent text-white shadow sm:text-sm sm:leading-6"
+          />
+          <div class="w-full px-2 py-1 text-left text-xs text-danger/80">
+            @if (templateInputRef.errors && templateInputRef.invalid && form_submission) {
+              @if (templateInputRef.errors['required']) {
+                <span>Email is required</span>
+              }
+            }
+            </div>
+        </div>
+
+        <div class="w-[85%] text-center">
+          <app-custom-button
+            [buttonClass]="
+              'h-14 w-full rounded-full font-bold bg-white md:text-xl text-black'
+            "
+            [disabled]="loading"
+            [type]="'submit'"
+            [label]="'Login'"
+            [loading]="loading"
+          ></app-custom-button>
+        </div>
+        <div class="flex h-[60px] mt-8 mb-2 w-[65%] items-center justify-between gap-6">
+          <hr class="h-[0px] w-2/4 border border-zinc-400" />
+          <p class="text-white font-semibold">OR</p>
+          <hr class="h-[0px] w-2/4 border border-zinc-400" />
+        </div>
+        <div class="w-[85%]">
+          <app-social-button (onClick)="signInWithGoogle()" logo="/assets/google.png" text="Continue with Google" [loading]="gLoading"></app-social-button>
+        </div>
+        <div class="w-[85%]">
+          <app-social-button (onClick)="availableSoon()" logo="/assets/facebook.png" text="Continue with Google" [loading]="fLoading"></app-social-button>
+        </div>
+        <div class="w-[85%]">
+          <app-social-button (onClick)="availableSoon()" classes="bg-white text-black" logo="/assets/google.png" text="Continue with Apple" [loading]="aLoading"></app-social-button>
+        </div>
+        <div class="w-[85%] text-center">
+          <span class="text-sm text-white">
+            New to ASAP? &nbsp;&nbsp;
+            <a href="" class="text-warning font-semibold text-[18px]">   Sign Up </a>
+          </span>
+        </div>
+        <div class="m-auto mb-0 w-[85%] text-center">
+          <span class="text-sm text-white">
+            By signing up, you agree to our
+            <a href="" class="text-white font-semibold"> Terms and privacy </a>policy
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="fixed inset-0 z-40 bg-black opacity-25"></div>
+</form>
