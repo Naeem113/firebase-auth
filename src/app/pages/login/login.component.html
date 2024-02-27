@@ -10,7 +10,7 @@
 
     >
       <div
-        class="xs:w-6/12 h-screen flex w-full flex-col items-center justify-center gap-2 md:rounded-[20px] bg-black/30 py-6 shadow-lg md:w-8/12 xl:w-1/2"
+        class="xs:w-6/12 max-w-sm h-screen flex w-full flex-col items-center justify-center gap-2 md:rounded-[20px] bg-black/30 py-6 shadow-lg md:w-8/12 xl:w-1/2"
       >
         <div class="relative right-4 flex w-full justify-end">
         </div>
@@ -38,7 +38,7 @@
             ></app-form-message>
           </div>
         }
-        <div class="w-[85%] justify-center gap-1 sm:flex">
+        <div class="w-[85%] justify-center gap-1">
           <input
             (focus)="onInputFocus()"
             #templateInputRef="ngModel"
@@ -67,7 +67,7 @@
             }
             </div>
         </div>
-        <div class="w-[85%] justify-center gap-1 sm:flex">
+        <div class="w-[85%] justify-center gap-1">
           <input
             (focus)="onInputFocus()"
             #templateInputRef="ngModel"
