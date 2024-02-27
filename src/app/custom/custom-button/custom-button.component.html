@@ -1,0 +1,18 @@
+<button
+    [ngClass]="buttonClass?buttonClass:'bg-secondary hover:bg-secondary/80 text-white' "
+    class="rounded-full  px-4 py-2 text-sm flex justify-center items-center shadow-md  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sebg-secondary"
+    [disabled]="disabled"
+    (click)="onClick.emit()"
+    [type]="type"
+>
+@if(!loading){
+    @if(icon){
+        <i class="fa mr-2" [ngClass]="icon"></i>
+    }
+     {{ label }}
+}@else{
+    Please wait...
+    <app-custom-spinner classes="ml-4" [classes]="'w-4 h-4'"></app-custom-spinner>
+}
+
+</button>

@@ -1,0 +1,101 @@
+<div class="relative flex w-full items-center justify-start">
+  <!-- @if(showLable || value){
+      <label
+        for="name"
+        class="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-tsecondary ease-in  transition-all duration-1000 opacity-100 scale-100"
+        >{{lable}}
+        @if (isRequired) {
+          <span class="text-danger">*</span>
+        }
+      </label>
+  } -->
+<input
+  (focus)="showLable = true;onInputFocus()"
+  (blur)="showLable = false"
+  #templateInputRef="ngModel"
+  [type]="showPass ? 'text' : type"
+  [placeholder]="placeholder"
+  [name]="name"
+  [id]="id"
+  [readOnly]="readOnly"
+  [(ngModel)]="value"
+  [pattern]="pattern"
+  [required]="isRequired"
+  [minlength]="minlength"
+  [maxlength]="maxlength"
+  (input)="inputChange.emit(value)"
+  [ngClass]="
+    (templateInputRef.invalid && formSubmission) || errorMessage
+      ? 'border-danger/80 focus:outline-danger/80'
+      : 'border-zinc-400 focus:outline-none '
+  "
+  class="block h-[55px] w-full rounded-full font-bold border py-1.5 pl-8 pr-5 bg-transparent text-white shadow sm:text-sm sm:leading-6"
+/>
+
+@if (iconSrc) {
+  <i [ngClass]="iconSrc?iconSrc:''" class="fa fa-lg text-tsecondary/50 absolute ml-5" style="size: 30px;"></i>
+}
+@if (imgSrc) {
+  <img [src]="imgSrc" alt="" class="absolute ml-6" />
+}
+
+@if (showPasswordToggle) {
+  <img
+    (click)="togglePasswordVisibility()"
+    [src]="
+      showPass
+        ? '/assets/images/login/Eye-Closed.png'
+        : '/assets/images/login/Eye-Closed.png'
+    "
+    alt=""
+    class="absolute right-2 cursor-pointer"
+  />
+}
+</div>
+
+<!-- validation messages -->
+<div class="w-full px-2 py-1 text-left text-xs text-danger/80">
+@if (templateInputRef.errors && templateInputRef.invalid && formSubmission) {
+  @if (templateInputRef.errors['required']) {
+    <span>{{ lable }} is required</span>
+  }
+  @if (templateInputRef.errors['pattern']) {
+
+    @switch (name) {
+      @case ('emailid') {
+        {{ lable }} format is not
+        valid
+      }
+      @case ('passedoutyear') {
+        {{ lable }} format is not
+        valid. use only year e.g. 2015
+      }
+      @case ('password') {
+        {{ lable }} must be at least 8
+        characters, 1 lower case letter, 1 upper case letter, 1 didgit, 1
+        special charater and no whitespace allowed
+      }
+      @case ('socialmediaurl') {
+        {{ lable }} must be started from https:// or http://
+      }
+    }
+
+  }
+  @if (templateInputRef.errors['minlength']) {
+    <span
+      >{{ lable }} must be at least
+      {{ minlength }} characters</span
+    >
+  }
+  @if (templateInputRef.errors['maxlength']) {
+    <span
+      >{{ lable }} must be less than
+      {{ maxlength }} characters</span
+    >
+  }
+} @else {
+  @if (errorMessage != '') {
+    <span>{{ errorMessage }}</span>
+  }
+}
+</div>
